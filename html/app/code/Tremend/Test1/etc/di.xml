@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Tremend\Test1\Model\ResourceModel\Blog\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">blogmanager_blog</argument>
+            <argument name="resourceModel" xsi:type="string">Tremend\Test1\Model\ResourceModel\Blog</argument>
+        </arguments>
+    </type>
+    <!--<type name="Tremend\Test1\Model\ResourceModel\Product\Grid\Collection">
+        &lt;!&ndash;<arguments>
+            &lt;!&ndash;<argument name="mainTable" xsi:type="string">catalog_product_entity</argument>&ndash;&gt;
+            &lt;!&ndash;<argument name="eventPrefix" xsi:type="string">catalog_product_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">product_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Magento\Catalog\Model\ResourceModel\Product</argument>&ndash;&gt;
+        </arguments>&ndash;&gt;
+    </type>-->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="blogmanager_blog_listing_data_source" xsi:type="string">Tremend\Test1\Model\ResourceModel\Blog\Grid\Collection</item>
+                <!--<item name="blogmanager_blog_list_products_data_source" xsi:type="string">Tremend\Test1\Model\ResourceModel\Product\Grid\Collection</item>-->
+                <!--<item name="blogmanager_blog_list_products_data_source" xsi:type="string">Magento\Catalog\Model\ResourceModel\Product\Grid\Collection</item>-->
+            </argument>
+        </arguments>
+    </type>
+</config>

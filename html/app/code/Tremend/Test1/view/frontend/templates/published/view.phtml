@@ -1,0 +1,52 @@
+<?php
+$blog = $block->getBlog();
+
+// var_dump($blog);
+
+$blogId = $blog->getId();
+$blogTitle = $blog->getTitle();
+$blogContent = $blog->getContent();
+$products = $blog->getProducts();
+$relatedProducts = $blog->getRelatedProducts();
+
+var_dump($this->getCacheKey());
+var_dump($this->getCacheKeyInfo());
+var_dump($this->getIdentities());
+?>
+<div class="blog-entry-wrapper">
+    <ul>
+        <li>ID: <?= $blogId ?></li>
+        <li>Author: <?= $block->getAuthor($blog->getUserId()); ?></li>
+        <li>Title: <?= $blogTitle ?></li>
+        <li>Content:<br><?= (empty($blogContent) ? '' : nl2br($blogContent)) ?></li>
+        <li>Products: <?= $products ?><br>
+            <ul>
+            <?php
+            if (!empty($products)):
+                $relatedProducts1 = $block->getRelatedProducts($products);
+                foreach ($relatedProducts1 as $product):
+            ?>
+                    <li>Id: <?= $product['value'] ?> ; Name: <?= $product['label'] ?></li>
+            <?php
+                endforeach;
+            endif;
+            ?>
+            </ul>
+        </li>
+        <li>NEW Related Products: <?= print_r($relatedProducts, true) ?><br>
+            <ul>
+                <?php
+                if (!empty($relatedProducts)):
+                    $relatedProducts2 = $block->getRelatedProducts($relatedProducts);
+                    foreach ($relatedProducts2 as $product):
+                        ?>
+                        <li>Id: <?= $product['value'] ?> ; Name: <?= $product['label'] ?></li>
+                    <?php
+                    endforeach;
+                endif;
+                ?>
+            </ul>
+        </li>
+    </ul>
+
+</div>

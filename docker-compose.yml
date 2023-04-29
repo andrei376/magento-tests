@@ -1,0 +1,85 @@
+version: "3.8"
+
+# Listing our three containers. Or "services", as known by Docker Compose.
+services:
+    # Defining our MySQL container.
+    # "mysql" will be the network alias for this container.
+    mysql:
+        image: mysql:8.0.30
+        container_name: magento-demo-mysql
+        networks:
+            - magento-demo-network
+        ports:
+            - "3306:3306"
+        volumes:
+            - magento-demo-mysql-data:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_USER: magento
+            MYSQL_PASSWORD: password
+            MYSQL_DATABASE: magento_demo
+
+    # Defining our Elasticsearch container
+    # "elasticsearch" will be the network alias for this container.
+    elasticsearch:
+        image: elasticsearch:7.17.6
+        container_name: magento-demo-elasticsearch
+        networks:
+            - magento-demo-network
+        ports:
+            - "9200:9200"
+            - "9300:9300"
+        environment:
+            discovery.type: single-node
+
+    mailhog:
+        image: mailhog/mailhog
+        container_name: 'mailhog'
+        networks:
+            - magento-demo-network
+        ports:
+            - "1025:1025"
+            - "8025:8025"
+    pma:
+        image: phpmyadmin
+        container_name: pma
+        networks:
+            - magento-demo-network
+        ports:
+            - "8181:80"
+        environment:
+            PMA_HOST: mysql
+    # Defining our custom Magento 2 container.
+    # "web" will be the network alias for this container.
+    web:
+        # The build section tells Docker Compose how to build the image.
+        # This essentially runs a "docker build" command.
+        build:
+            context: .
+            dockerfile: Dockerfile            
+            args:
+                USER: andrei
+                UID: 1000
+                GID: 1000
+        container_name: magento-demo-web
+        entrypoint:
+            - php 
+            - -S 
+            - 0.0.0.0:80 
+            - -t 
+            - ./pub/ 
+            - ./phpserver/router.php
+        networks:
+            - magento-demo-network
+        ports:
+            - "80:80"
+        volumes:
+            - ./html/:/workspaces/magento-demo
+
+# The volume that is used by the MySQL container
+volumes:
+    magento-demo-mysql-data:
+
+# The network where all the containers will live
+networks:
+    magento-demo-network:

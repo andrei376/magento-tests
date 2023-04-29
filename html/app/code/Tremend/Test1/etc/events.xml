@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="tremend_blogmanager_blog_load_after">
+        <observer name="tremend_test1_event_blog_load_products" instance="Tremend\Test1\Observer\BlogProductLoad" />
+    </event>
+    <event name="tremend_blogmanager_blog_save_after">
+        <observer name="tremend_test1_event_blog_save_products" instance="Tremend\Test1\Observer\BlogProductSave" />
+    </event>
+</config>

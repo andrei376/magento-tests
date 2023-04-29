@@ -1,0 +1,27 @@
+{
+    "name": "Tremend/Test1",
+    "description": "Test component for Magento 2",
+    "require": {
+        "php": "~8",
+        "magento/module-store": "102.1",
+        "magento/module-catalog": "102.1",
+        "magento/module-catalog-inventory": "102.1",
+        "magento/module-ui": "self.version",
+        "magento/magento-composer-installer": "*"
+    },
+    "suggest": {
+        "magento/module-webapi": "102.1"
+    },
+    "type": "magento2-module",
+    "version": "102.1",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [ "registration.php" ],
+        "psr-4": {
+            "Magento\\CatalogImportExport\\": ""
+        }
+    }
+}

@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">blogmanager_blog_editing.blogmanager_blog_editing_data_source</item>
+            <item name="deps" xsi:type="string">blogmanager_blog_editing.blogmanager_blog_editing_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Blog Data</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <!--<exports>
+            <link name="entity_id">blogmanager_blog_editing:related_products</link>
+        </exports>-->
+        <!--<imports>
+            <link name="entity_id">${ $.provider}:data.products</link>
+        </imports>-->
+        <buttons>
+            <button name="back" class="Tremend\Test1\Block\Adminhtml\Edit\BackButton" />
+            <button name="save" class="Tremend\Test1\Block\Adminhtml\Edit\Save" />
+        </buttons>
+        <namespace>blogmanager_blog_editing</namespace>
+        <dataScope>data</dataScope>
+        <!--<layout>
+            <navContainerName>left</navContainerName>
+            <type>tabs</type>
+        </layout>-->
+        <deps>
+            <dep>blogmanager_blog_editing.blogmanager_blog_editing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="blogmanager_blog_editing_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <!--<validateUrl path="customer/index/validate"/>-->
+            <submitUrl path="*/*/save"/>
+        </settings>
+        <dataProvider class="Tremend\Test1\Model\Blog\DataProvider" name="blogmanager_blog_editing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="blog_data">
+        <settings>
+            <label translate="true">Blog Data</label>
+        </settings>
+        <field name="entity_id" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">blog</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <visible>false</visible>
+            </settings>
+        </field>
+        <field name="title" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">blog</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Title</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="content" formElement="textarea">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">blog</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Content</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="status" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">blog</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Status</label>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Tremend\Test1\Model\Blog\Status"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+    </fieldset>
+    <fieldset name="assign_products" sortOrder="40">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Products</label>
+        </settings>
+        <insertListing name="insert_listing_example">
+            <settings>
+                <dataLinks>
+                    <exports>false</exports>
+                    <imports>true</imports>
+                </dataLinks>
+                <autoRender>true</autoRender>
+                <selectionsProvider>insert_listing_example.insert_listing_example.columns.ids</selectionsProvider>
+                <!--<dataScope>insert_listing_example_ds</dataScope>-->
+                <dataScope>related_products</dataScope>
+                <ns>insert_listing_example</ns>
+            </settings>
+        </insertListing>
+    </fieldset>
+    <!--<fieldset name="blog_list">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Blog list</label>
+        </settings>
+        <insertListing name="blogmanager_blog_listing">
+            <settings>
+                <dataLinks>
+                    <exports>true</exports>
+                    <imports>true</imports>
+                </dataLinks>
+                <autoRender>false</autoRender>
+                <selectionsProvider>blogmanager_blog_listing.blogmanager_blog_listing.blogmanager_blog_columns.ids</selectionsProvider>
+                <externalProvider>blogmanager_blog_listing.blogmanager_blog_listing_data_source</externalProvider>
+                <dataScope>related_products</dataScope>
+                <behaviourType>simple</behaviourType>
+                <externalFilterMode>false</externalFilterMode>
+                <realTimeLink>false</realTimeLink>
+                <ns>blogmanager_blog_listing</ns>
+                <exports>
+                    <link name="entity_id">${ $.externalProvider }:params.related_products</link>
+                </exports>
+                <imports>
+                    <link name="entity_id">${ $.provider }:data.entity_id</link>
+                </imports>
+            </settings>
+        </insertListing>
+    </fieldset>-->
+    <!--<fieldset name="related_products_2">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Related Products</label>
+        </settings>
+        <insertListing name="blogmanager_blog_product_listing">
+            <settings>
+                <dataLinks>
+                    <exports>true</exports>
+                    <imports>true</imports>
+                </dataLinks>
+                <autoRender>true</autoRender>
+                <selectionsProvider>blogmanager_blog_product_listing.blogmanager_blog_product_listing.blogmanager_blog_product_columns.ids</selectionsProvider>
+                <externalProvider>blogmanager_blog_product_listing.blogmanager_blog_list_products_data_source</externalProvider>
+                <dataScope>related_products</dataScope>
+                <behaviourType>simple</behaviourType>
+                <externalFilterMode>false</externalFilterMode>
+                <realTimeLink>false</realTimeLink>
+                <ns>blogmanager_blog_product_listing</ns>
+                <exports>
+                    <link name="entity_id">${ $.externalProvider }:params.related_products</link>
+                </exports>
+                <imports>
+                    <link name="entity_id">${ $.provider }:data.entity_id</link>
+                </imports>
+            </settings>
+        </insertListing>
+    </fieldset>-->
+    <fieldset name="test_modal_1">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">test modal 1</label>
+            <opened>true</opened>
+            <dataScope>related_products</dataScope>
+        </settings>
+        <container name="assign_products_container" component="Magento_Ui/js/form/components/group" sortOrder="10">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="formElement" xsi:type="string">container</item>
+                    <item name="breakLine" xsi:type="boolean">false</item>
+                    <item name="dataScope" xsi:type="string" />
+                    <item name="label" xsi:type="string" />
+                </item>
+            </argument>
+            <button name="assign_products_button" template="ui/form/components/button/container">
+                <settings>
+                    <title translate="true">Assign Products</title>
+                    <dataScope />
+                </settings>
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="formElement" xsi:type="string">container</item>
+                        <item name="actions" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="targetName" xsi:type="string">${$.ns}.${$.ns}.test_modal_1.product_listing_example_modal</item>
+                                <item name="actionName" xsi:type="string">toggleModal</item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="targetName" xsi:type="string">product_listing_example_modal.blogmanager_blog_product_listing</item>
+                                <item name="actionName" xsi:type="string">render</item>
+                            </item>
+                        </item>
+                        <item name="additionalForGroup" xsi:type="boolean">true</item>
+                        <item name="additionalClasses" xsi:type="string">admin__field-medium</item>
+                    </item>
+                </argument>
+            </button>
+        </container>
+        <dynamicRows name="assigned_products" component="Magento_Ui/js/dynamic-rows/dynamic-rows-grid" sortOrder="20">
+            <argument name="data" xsi:type="array">
+                <item name="js_config" xsi:type="array">
+                    <!--<item name="dataProvider" xsi:type="string">data.sources.blogmanager_blog_product_listing</item>-->
+                    <item name="dataScope" xsi:type="string">blogmanager_blog_product_listing.blogmanager_blog_list_products_data_source.related_products</item>
+
+                    <item name="dataProvider" xsi:type="string">blogmanager_blog_product_listing</item>
+                    <item name="map" xsi:type="array">
+                        <item name="entity_id" xsi:type="string">entity_id</item>
+                        <item name="sku" xsi:type="string">sku</item>
+                    </item>
+                    <item name="identificationDRProperty" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Related products</label>
+                <defaultRecord>false</defaultRecord>
+                <addButton>false</addButton>
+                <deleteProperty>true</deleteProperty>
+                <recordTemplate>record</recordTemplate>
+                <identificationProperty>entity_id</identificationProperty>
+                <links>
+                    <link name="insertData">${ $.provider }:${ $.dataProvider }</link>
+                </links>
+                <dndConfig>
+                    <param name="enabled" xsi:type="boolean">false</param>
+                </dndConfig>
+                <columnsHeader>true</columnsHeader>
+                <componentType>dynamicRows</componentType>
+            </settings>
+            <container name="record" component="Magento_Ui/js/dynamic-rows/record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="dataScope" xsi:type="string" />
+                        <!--<item name="positionProvider" xsi:type="string">priority</item>-->
+                    </item>
+                </argument>
+                <field name="entity_id" formElement="input" sortOrder="10">
+                    <settings>
+                        <elementTmpl>ui/dynamic-rows/cells/text</elementTmpl>
+                        <dataType>text</dataType>
+                        <dataScope>entity_id</dataScope>
+                        <label translate="true">Product ID</label>
+                        <labelVisible>false</labelVisible>
+                    </settings>
+                </field>
+                <field name="sku" formElement="input" sortOrder="20">
+                    <settings>
+                        <elementTmpl>ui/dynamic-rows/cells/text</elementTmpl>
+                        <dataType>text</dataType>
+                        <dataScope>sku</dataScope>
+                        <label translate="true">SKU</label>
+                        <labelVisible>false</labelVisible>
+                    </settings>
+                </field>
+                <field name="name" formElement="input" sortOrder="30">
+                    <settings>
+                        <elementTmpl>ui/form/element/input</elementTmpl>
+                        <dataType>text</dataType>
+                        <dataScope>name</dataScope>
+                        <label translate="true">Name</label>
+                        <visible>false</visible>
+                    </settings>
+                </field>
+                <actionDelete name="actionDelete" template="Magento_InventoryCatalogAdminUi/stock/assign-sources/action-delete">
+                    <argument name="data" xsi:type="array" />
+                    <settings>
+                        <label translate="true">Delete</label>
+                        <elementTmpl>Magento_InventoryCatalogAdminUi/stock/assign-sources/action-delete</elementTmpl>
+                        <dataType>text</dataType>
+                        <componentType>actionDelete</componentType>
+                    </settings>
+                </actionDelete>
+            </container>
+        </dynamicRows>
+
+        <modal name="product_listing_example_modal">
+            <settings>
+                <options>
+                    <option name="title" xsi:type="string">Product Listing Modal</option>
+                    <option name="buttons" xsi:type="array">
+                        <item name="0" xsi:type="array">
+                            <item name="text" xsi:type="string">Cancel</item>
+                            <item name="class" xsi:type="string">action-secondary</item>
+                            <item name="actions" xsi:type="array">
+                                <item name="0" xsi:type="array">
+                                    <item name="targetName" xsi:type="string">${ $.name }</item>
+                                    <item name="actionName" xsi:type="string">actionCancel</item>
+                                </item>
+                            </item>
+                        </item>
+                        <item name="1" xsi:type="array">
+                            <item name="text" xsi:type="string" translate="true">Done</item>
+                            <item name="class" xsi:type="string">action-primary</item>
+                            <item name="actions" xsi:type="array">
+                                <item name="0" xsi:type="array">
+                                    <item name="targetName" xsi:type="string">index = blogmanager_blog_product_listing</item>
+                                    <item name="actionName" xsi:type="string">save</item>
+                                </item>
+                                <item name="1" xsi:type="array">
+                                    <item name="targetName" xsi:type="string">${ $.name }</item>
+                                    <item name="actionName" xsi:type="string">actionDone</item>
+                                </item>
+                            </item>
+                        </item>
+                    </option>
+                </options>
+            </settings>
+            <insertListing name="blogmanager_blog_product_listing">
+                <settings>
+                    <dataLinks>
+                        <exports>true</exports>
+                        <imports>true</imports>
+                    </dataLinks>
+                    <autoRender>true</autoRender>
+                    <selectionsProvider>blogmanager_blog_product_listing.blogmanager_blog_product_listing.blogmanager_blog_product_columns.ids</selectionsProvider>
+                    <externalProvider>blogmanager_blog_product_listing.blogmanager_blog_list_products_data_source</externalProvider>
+                    <!--<dataScope>related_products</dataScope>-->
+                    <dataScope>blogmanager_blog_product_listing</dataScope>
+                    <behaviourType>simple</behaviourType>
+                    <externalFilterMode>true</externalFilterMode>
+                    <realTimeLink>true</realTimeLink>
+                    <ns>blogmanager_blog_product_listing</ns>
+                    <exports>
+                        <link name="entity_id">${ $.externalProvider }:params.related_products</link>
+                    </exports>
+                    <imports>
+                        <link name="entity_id">${ $.provider }:data.entity_id</link>
+                    </imports>
+                </settings>
+            </insertListing>
+            <!--<insertForm name="insert_listing_example_loader">
+                <settings>
+                    <formSubmitType>ajax</formSubmitType>
+                    <renderUrl path="mui/index/render">
+                        <param name="handle">blogmanager_blog_product_listing</param>
+                        <param name="buttons">1</param>
+                    </renderUrl>
+                    <loading>false</loading>
+                    <toolbarContainer>${ $.parentName }</toolbarContainer>
+                    <ns>blogmanager_blog_product_listing</ns>
+                    <exports>
+                        <link name="entity_id">${ $.externalProvider }:params.related_products</link>
+                    </exports>
+                    <imports>
+                        <link name="entity_id">${ $.provider }:data.entity_id</link>
+                    </imports>
+                    <dataLinks>
+                        <exports>true</exports>
+                        <imports>true</imports>
+                    </dataLinks>
+                    <autoRender>true</autoRender>
+                    <externalProvider>blogmanager_blog_product_listing.blogmanager_blog_list_products_data_source</externalProvider>
+                    <dataScope>related_products</dataScope>
+                    <realTimeLink>false</realTimeLink>
+                </settings>
+            </insertForm>-->
+        </modal>
+        <!--<button name="product_listing_example_modal_button" component="Magento_Ui/js/form/components/button">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="buttonClasses" xsi:type="string">open-insert-listing-example-modal-button</item>
+                    <item name="actions" xsi:type="array">
+                        &lt;!&ndash;<item name="0" xsi:type="array">
+                            <item name="targetName" xsi:type="string">${ $.parentName}.product_listing_example_modal.insert_listing_example_loader</item>
+                            <item name="actionName" xsi:type="string">destroyInserted</item>
+                        </item>&ndash;&gt;
+                        <item name="0" xsi:type="array">
+                            <item name="targetName" xsi:type="string">${ $.parentName}.product_listing_example_modal</item>
+                            <item name="actionName" xsi:type="string">toggleModal</item>
+                        </item>
+                        &lt;!&ndash;<item name="2" xsi:type="array">
+                            <item name="targetName" xsi:type="string">${ $.parentName}.product_listing_example_modal.insert_listing_example_loader</item>
+                            <item name="actionName" xsi:type="string">render</item>
+                        </item>&ndash;&gt;
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <title translate="true">Select products</title>
+            </settings>
+        </button>-->
+    </fieldset>
+</form>
