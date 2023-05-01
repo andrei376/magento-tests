@@ -223,17 +223,18 @@
                 </argument>
             </button>
         </container>
-        <dynamicRows component="Magento_Ui/js/dynamic-rows/dynamic-rows-grid" sortOrder="20">
+        <dynamicRows name="related_products" component="Magento_Ui/js/dynamic-rows/dynamic-rows-grid" sortOrder="20">
             <argument name="data" xsi:type="array">
                 <item name="js_config" xsi:type="array">
-                    <item name="dataProvider" xsi:type="string">data.sources.blogmanager_blog_product_listing</item>
+                    <item name="dataProvider" xsi:type="string">${$.ns}.${$.ns}.test_modal_1.product_listing_example_modal.blogmanager_blog_product_listing</item>
                     <!--<item name="dataScope" xsi:type="string">blogmanager_blog_product_listing.blogmanager_blog_list_products_data_source.related_products</item>-->
-                    <item name="dataScope" xsi:type="string">data</item>
+                    <item name="dataScope" xsi:type="string">data.related_products</item>
 
                     <!--<item name="dataProvider" xsi:type="string">blogmanager_blog_product_listing</item>-->
                     <item name="map" xsi:type="array">
                         <item name="entity_id" xsi:type="string">entity_id</item>
                         <item name="sku" xsi:type="string">sku</item>
+                        <item name="name" xsi:type="string">name</item>
                     </item>
                     <item name="identificationDRProperty" xsi:type="string">entity_id</item>
                 </item>
@@ -283,11 +284,19 @@
                 </field>
                 <field name="name" formElement="input" sortOrder="30">
                     <settings>
-                        <elementTmpl>ui/form/element/input</elementTmpl>
+                        <elementTmpl>ui/dynamic-rows/cells/text</elementTmpl>
                         <dataType>text</dataType>
                         <dataScope>name</dataScope>
                         <label translate="true">Name</label>
-                        <visible>false</visible>
+                        <visible>true</visible>
+                    </settings>
+                </field>
+                <field name="thumbnail" formElement="input" sortOrder="20">
+                    <settings>
+                        <elementTmpl>ui/dynamic-rows/cells/thumbnail</elementTmpl>
+                        <dataType>text</dataType>
+                        <dataScope>thumbnail_src</dataScope>
+                        <label translate="true">Thumbnail</label>
                     </settings>
                 </field>
                 <actionDelete name="actionDelete" template="Magento_InventoryCatalogAdminUi/stock/assign-sources/action-delete">
@@ -346,8 +355,8 @@
                     <dataScope>related_products</dataScope>
                     <!--<dataScope>blogmanager_blog_product_listing</dataScope>-->
                     <behaviourType>simple</behaviourType>
-                    <externalFilterMode>false</externalFilterMode>
-                    <realTimeLink>false</realTimeLink>
+                    <externalFilterMode>true</externalFilterMode>
+                    <realTimeLink>true</realTimeLink>
                     <ns>blogmanager_blog_product_listing</ns>
                     <exports>
                         <link name="entity_id">${ $.externalProvider }:params.related_products</link>
