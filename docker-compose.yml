@@ -6,6 +6,7 @@ services:
     # "mysql" will be the network alias for this container.
     mysql:
         image: mysql:8.0.30
+        stop_grace_period: 1m30s
         container_name: magento-demo-mysql
         networks:
             - magento-demo-network
@@ -23,6 +24,7 @@ services:
     # "elasticsearch" will be the network alias for this container.
     elasticsearch:
         image: elasticsearch:7.17.6
+        stop_grace_period: 1m30s
         container_name: magento-demo-elasticsearch
         networks:
             - magento-demo-network
@@ -34,6 +36,7 @@ services:
 
     mailhog:
         image: mailhog/mailhog
+        stop_grace_period: 1m30s
         container_name: 'mailhog'
         networks:
             - magento-demo-network
@@ -42,6 +45,7 @@ services:
             - "8025:8025"
     pma:
         image: phpmyadmin
+        stop_grace_period: 1m30s
         container_name: pma
         networks:
             - magento-demo-network
@@ -56,19 +60,22 @@ services:
         # This essentially runs a "docker build" command.
         build:
             context: .
-            dockerfile: Dockerfile            
+            dockerfile: Dockerfile
             args:
                 USER: andrei
                 UID: 1000
                 GID: 1000
         container_name: magento-demo-web
-        entrypoint:
-            - php 
-            - -S 
-            - 0.0.0.0:80 
-            - -t 
-            - ./pub/ 
-            - ./phpserver/router.php
+        stop_grace_period: 15s
+#        command: php -S 0.0.0.0:80 -t ./pub/ ./phpserver/router.php
+        command: ./run.sh
+#        entrypoint:
+#            - php
+#            - -S
+#            - 0.0.0.0:80
+#            - -t
+#            - ./pub/
+#            - ./phpserver/router.php
         networks:
             - magento-demo-network
         ports:
