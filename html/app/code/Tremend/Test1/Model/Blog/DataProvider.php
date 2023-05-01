@@ -39,7 +39,14 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         $items = $this->collection->getItems();
         foreach ($items as $blog) {
             $this->loadedData[$blog->getId()] = $blog->getData();
-            $this->loadedData[$blog->getId()]['related_products_2'] = [];
+
+            //important for insertlisting showing how many are selected
+            $this->loadedData[$blog->getId()]['related_products'] = [];
+
+
+
+            // $this->loadedData[$blog->getId()]['test_modal_1'] = [];
+            // $this->loadedData[$blog->getId()]['blogmanager_blog_product_listing'] = [];
             // $this->loadedData[$blog->getId()]['blog_list'] = [];
         }
 

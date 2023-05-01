@@ -78,7 +78,7 @@ class Collection extends ProductCollection implements SearchResultInterface
             $connection
         );
 
-        $this->getSelect()->reset(\Zend_Db_Select::WHERE);
+        // $this->getSelect()->reset(\Zend_Db_Select::WHERE);
 
         $params = $this->context->getRequestParams();
 
@@ -208,7 +208,7 @@ class Collection extends ProductCollection implements SearchResultInterface
         // $this->ProductCollectionFactory->create()->addAttributeToSelect('name');
 
         if (isset($params["related_products"])) {
-            $this->getSelect()->reset(\Zend_Db_Select::WHERE);
+            // $this->getSelect()->reset(\Zend_Db_Select::WHERE);
         } elseif ($entity_id) {
             //remove products filter
             // var_dump(__CLASS__.'::'.__FUNCTION__);

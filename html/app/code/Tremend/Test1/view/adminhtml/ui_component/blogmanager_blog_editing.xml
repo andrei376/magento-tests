@@ -188,7 +188,7 @@
             <collapsible>true</collapsible>
             <label translate="true">test modal 1</label>
             <opened>true</opened>
-            <dataScope>related_products</dataScope>
+            <dataScope></dataScope>
         </settings>
         <container name="assign_products_container" component="Magento_Ui/js/form/components/group" sortOrder="10">
             <argument name="data" xsi:type="array">
@@ -213,7 +213,7 @@
                                 <item name="actionName" xsi:type="string">toggleModal</item>
                             </item>
                             <item name="1" xsi:type="array">
-                                <item name="targetName" xsi:type="string">product_listing_example_modal.blogmanager_blog_product_listing</item>
+                                <item name="targetName" xsi:type="string">${$.ns}.${$.ns}.test_modal_1.product_listing_example_modal.blogmanager_blog_product_listing</item>
                                 <item name="actionName" xsi:type="string">render</item>
                             </item>
                         </item>
@@ -223,13 +223,14 @@
                 </argument>
             </button>
         </container>
-        <dynamicRows name="assigned_products" component="Magento_Ui/js/dynamic-rows/dynamic-rows-grid" sortOrder="20">
+        <dynamicRows component="Magento_Ui/js/dynamic-rows/dynamic-rows-grid" sortOrder="20">
             <argument name="data" xsi:type="array">
                 <item name="js_config" xsi:type="array">
-                    <!--<item name="dataProvider" xsi:type="string">data.sources.blogmanager_blog_product_listing</item>-->
-                    <item name="dataScope" xsi:type="string">blogmanager_blog_product_listing.blogmanager_blog_list_products_data_source.related_products</item>
+                    <item name="dataProvider" xsi:type="string">data.sources.blogmanager_blog_product_listing</item>
+                    <!--<item name="dataScope" xsi:type="string">blogmanager_blog_product_listing.blogmanager_blog_list_products_data_source.related_products</item>-->
+                    <item name="dataScope" xsi:type="string">data</item>
 
-                    <item name="dataProvider" xsi:type="string">blogmanager_blog_product_listing</item>
+                    <!--<item name="dataProvider" xsi:type="string">blogmanager_blog_product_listing</item>-->
                     <item name="map" xsi:type="array">
                         <item name="entity_id" xsi:type="string">entity_id</item>
                         <item name="sku" xsi:type="string">sku</item>
@@ -292,7 +293,7 @@
                 <actionDelete name="actionDelete" template="Magento_InventoryCatalogAdminUi/stock/assign-sources/action-delete">
                     <argument name="data" xsi:type="array" />
                     <settings>
-                        <label translate="true">Delete</label>
+                        <label translate="true">Actions</label>
                         <elementTmpl>Magento_InventoryCatalogAdminUi/stock/assign-sources/action-delete</elementTmpl>
                         <dataType>text</dataType>
                         <componentType>actionDelete</componentType>
@@ -339,14 +340,14 @@
                         <exports>true</exports>
                         <imports>true</imports>
                     </dataLinks>
-                    <autoRender>true</autoRender>
+                    <autoRender>false</autoRender>
                     <selectionsProvider>blogmanager_blog_product_listing.blogmanager_blog_product_listing.blogmanager_blog_product_columns.ids</selectionsProvider>
                     <externalProvider>blogmanager_blog_product_listing.blogmanager_blog_list_products_data_source</externalProvider>
-                    <!--<dataScope>related_products</dataScope>-->
-                    <dataScope>blogmanager_blog_product_listing</dataScope>
+                    <dataScope>related_products</dataScope>
+                    <!--<dataScope>blogmanager_blog_product_listing</dataScope>-->
                     <behaviourType>simple</behaviourType>
-                    <externalFilterMode>true</externalFilterMode>
-                    <realTimeLink>true</realTimeLink>
+                    <externalFilterMode>false</externalFilterMode>
+                    <realTimeLink>false</realTimeLink>
                     <ns>blogmanager_blog_product_listing</ns>
                     <exports>
                         <link name="entity_id">${ $.externalProvider }:params.related_products</link>

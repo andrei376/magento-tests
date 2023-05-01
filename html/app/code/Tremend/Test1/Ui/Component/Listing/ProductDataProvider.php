@@ -98,13 +98,14 @@ class ProductDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
      */
     public function getData()
     {
-        if (!$this->getCollection()->isLoaded()) {
+        //if (!$this->getCollection()->isLoaded()) {
             $entity_id = $this->context->getRequestParam("products");
 
             $params = $this->context->getRequestParams();
 
-            if (isset($params["related_products"])) {
-                $this->getCollection()->getSelect()->reset(\Zend_Db_Select::WHERE);
+            /*if (isset($params["related_products"])) {
+                // $this->getCollection()->getSelect()->reset(\Zend_Db_Select::WHERE);
+                // var_dump('aici');
             } elseif ($entity_id) {
                 //remove products filter
                 $this->getCollection()->getSelect()->reset(\Zend_Db_Select::WHERE);
@@ -116,10 +117,10 @@ class ProductDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
                 $products = $data->getColumnValues('product_id');
 
                 $this->getCollection()->addFieldToFilter("entity_id", $products);
-            }
+            }*/
 
             $this->getCollection()->load();
-        }
+        //}
         $products = $this->getCollection()->toArray();
 
         return ['totalRecords' => $this->getCollection()->getSize(), 'items' => array_values($products)];
