@@ -20,12 +20,15 @@ class Save extends Action
         \Tremend\Test1\Model\BlogFactory $blogFactory,
         CacheTypeListInterface $cache,
         CacheManager $cacheManager,
+        \Psr\Log\LoggerInterface $logger,
         CacheInterface $cacheInterface
     ) {
         $this->blogFactory = $blogFactory;
         $this->cache = $cache;
         $this->cacheManager = $cacheManager;
         $this->cacheInterface = $cacheInterface;
+
+        $this->logger = $logger;
 
         parent::__construct($context);
     }
@@ -34,18 +37,16 @@ class Save extends Action
     {
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getParams();
+
+        if (!isset($data['related_products'])) {
+            $data['related_products'] = [];
+        }
+
+        // var_dump($data);
+
         if (isset($data['entity_id']) && $data['entity_id']) {
             $model = $this->blogFactory->create()->load($data['entity_id']);
-            /*$model->setTitle($data['title'])
-                ->setContent($data['content'])
-                ->setStatus($data['status'])
-                ->setUserId($data['user_id']);
-            if (isset($data['products']) && is_array($data['products'])) {
-                $model->setProducts(implode(',', $data['products']));
-            } else {
-                $model->setProducts('');
-            }*/
-            // var_dump($data);
+
             $model->addData($data);
             $model->save();
             $this->messageManager->addSuccess(__('You have updated the blog successfully.'));

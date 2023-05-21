@@ -188,6 +188,8 @@ class Collection extends ProductCollection implements SearchResultInterface
 
     protected function _renderFiltersBefore()
     {
+        $this->logger->error(__CLASS__.'::'.__FUNCTION__);
+
         // var_dump($this->_filters);
 
         // $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
@@ -221,7 +223,9 @@ class Collection extends ProductCollection implements SearchResultInterface
 
             $products = $data->getColumnValues('product_id');
 
-            $this->addFieldToFilter("entity_id", $products);
+            if (!empty($products)) {
+                $this->addFieldToFilter("entity_id", $products);
+            }
         }
 
         // var_dump($this->getSelect()->__toString());

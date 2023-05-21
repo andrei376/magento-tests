@@ -42,7 +42,7 @@ class RelatedProducts extends \Magento\Backend\Block\Widget\Form\Generic
 
         $form->setValues($model->getData());
 
-        $dbdata = $model->getData();
+        // $dbdata = $model->getData();
 
         // $elProducts->setValue($dbdata['related_products']);
 
